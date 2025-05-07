@@ -1,0 +1,51 @@
+{% extends 'hardware/base.html' %}
+{% load humanize %}
+
+{% block title %}Lista de Stock de Tinta - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Lista de Stock de Tinta{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <a href="{% url 'inkstock-create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Añadir Stock de Tinta
+    </a>
+</div>
+
+{% if inkstocks %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Modelo de Toner</th>
+                <th>Tipo de Tinta</th>
+                <th>Cantidad</th>
+                <th>Precio de Compra</th>
+                <th>Fecha de Compra</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for inkstock in inkstocks %}
+            <tr>
+                <td>{{ inkstock.toner_model }}</td>
+                <td>{{ inkstock.ink_type }}</td>
+                <td>{{ inkstock.quantity }}</td>
+                <td>PYG {{ inkstock.buying_price|intcomma }}</td>
+                <td>{{ inkstock.purchase_date|date:"d/m/Y"|default:"-" }}</td>
+                <td>
+                    <a href="{% url 'inkstock-detail' inkstock.pk %}" class="btn btn-sm btn-info">Ver</a>
+                    <a href="{% url 'inkstock-update' inkstock.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'inkstock-delete' inkstock.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    No hay stock de tinta registrado. <a href="{% url 'inkstock-create' %}">Añadir Stock de Tinta</a>
+</div>
+{% endif %}
+{% endblock %}

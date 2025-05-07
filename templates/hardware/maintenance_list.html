@@ -1,0 +1,70 @@
+{% extends 'hardware/base.html' %}
+{% load humanize %}
+
+{% block title %}Registros de Mantenimiento - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Registros de Mantenimiento{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">Resumen de Costos</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Costo Total de Mantenimiento:</strong> PYG {{ total_maintenance_costs|intcomma }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a href="{% url 'maintenance-create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Añadir Registro de Mantenimiento
+    </a>
+</div>
+
+{% if maintenance_records %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Impresora</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Realizado por</th>
+                <th>Costo</th>
+                <th>Próximo Mantenimiento</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in maintenance_records %}
+            <tr>
+                <td>
+                    <a href="{% url 'printer-detail' record.printer.pk %}">
+                        {{ record.printer.code }}
+                    </a>
+                </td>
+                <td>{{ record.maintenance_date }}</td>
+                <td>{{ record.description|truncatechars:50 }}</td>
+                <td>{{ record.performed_by }}</td>
+                <td>PYG {{ record.cost|intcomma }}</td>
+                <td>{% if record.next_maintenance_date %}{{ record.next_maintenance_date }}{% else %}No programado{% endif %}</td>
+                <td>
+                    <a href="{% url 'maintenance-detail' record.pk %}" class="btn btn-sm btn-info">Ver</a>
+                    <a href="{% url 'maintenance-update' record.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'maintenance-delete' record.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    No hay registros de mantenimiento. <a href="{% url 'maintenance-create' %}">Añadir Registro de Mantenimiento</a>
+</div>
+{% endif %}
+{% endblock %}

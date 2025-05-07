@@ -1,0 +1,76 @@
+{% extends 'hardware/base.html' %}
+{% load humanize %}
+
+{% block title %}Lista de Impresoras - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Lista de Impresoras{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">Resumen de Costos de Mantenimiento</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Costo Total de Mantenimiento:</strong> PYG {{ total_maintenance_costs|intcomma }}</p>
+
+                {% if most_costly_printer %}
+                <div class="alert alert-warning">
+                    <h6>Impresora con Mayor Costo de Mantenimiento:</h6>
+                    <p>
+                        <strong>{{ most_costly_printer.brand }} {{ most_costly_printer.model }} ({{ most_costly_printer.code }})</strong><br>
+                        Costo Total: PYG {{ most_costly_printer_cost|intcomma }}
+                    </p>
+                    <a href="{% url 'printer-detail' most_costly_printer.pk %}" class="btn btn-sm btn-info">Ver Detalles</a>
+                </div>
+                {% else %}
+                <p class="text-muted">No hay datos de costos de mantenimiento disponibles.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a href="{% url 'printer-create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Añadir Impresora
+    </a>
+</div>
+
+{% if printers %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>IP</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for printer in printers %}
+            <tr>
+                <td>{{ printer.code }}</td>
+                <td>{{ printer.brand }}</td>
+                <td>{{ printer.model }}</td>
+                <td>{{ printer.ip }}</td>
+                <td>
+                    <a href="{% url 'printer-detail' printer.pk %}" class="btn btn-sm btn-info">Ver</a>
+                    <a href="{% url 'printer-update' printer.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'printer-delete' printer.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    <a href="{% url 'maintenance-create' %}?printer={{ printer.pk }}" class="btn btn-sm btn-success">Mantenimiento</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    No hay impresoras registradas. <a href="{% url 'printer-create' %}">Añadir Impresora</a>
+</div>
+{% endif %}
+{% endblock %}

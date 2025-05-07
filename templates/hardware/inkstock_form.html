@@ -1,0 +1,74 @@
+{% extends 'hardware/base.html' %}
+
+{% block title %}{{ title }} - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id_toner_model" class="form-label">Modelo de Toner</label>
+                <input type="text" name="toner_model" id="id_toner_model" class="form-control" value="{{ form.toner_model.value|default:'' }}" required>
+                {% if form.toner_model.errors %}
+                <div class="text-danger">{{ form.toner_model.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_ink_type" class="form-label">Tipo de Tinta</label>
+                        <input type="text" name="ink_type" id="id_ink_type" class="form-control" value="{{ form.ink_type.value|default:'' }}" required>
+                        {% if form.ink_type.errors %}
+                        <div class="text-danger">{{ form.ink_type.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_quantity" class="form-label">Cantidad</label>
+                        <input type="number" name="quantity" id="id_quantity" class="form-control" value="{{ form.quantity.value|default:'0' }}" min="0" required>
+                        {% if form.quantity.errors %}
+                        <div class="text-danger">{{ form.quantity.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_buying_price" class="form-label">Precio de Compra</label>
+                        <input type="number" name="buying_price" id="id_buying_price" class="form-control" value="{{ form.buying_price.value|default:'0' }}" step="0.01" min="0" required>
+                        {% if form.buying_price.errors %}
+                        <div class="text-danger">{{ form.buying_price.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_purchase_date" class="form-label">Fecha de Compra</label>
+                        <input type="date" name="purchase_date" id="id_purchase_date" class="form-control" value="{{ form.purchase_date.value|date:'Y-m-d'|default:'' }}">
+                        {% if form.purchase_date.errors %}
+                        <div class="text-danger">{{ form.purchase_date.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                {% if object %}
+                <a href="{% url 'inkstock-detail' object.pk %}" class="btn btn-secondary">Cancelar</a>
+                {% else %}
+                <a href="{% url 'inkstock-list' %}" class="btn btn-secondary">Cancelar</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

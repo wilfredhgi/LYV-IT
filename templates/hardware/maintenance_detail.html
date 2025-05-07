@@ -1,0 +1,57 @@
+{% extends 'hardware/base.html' %}
+{% load humanize %}
+
+{% block title %}Detalles del Mantenimiento - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Detalles del Mantenimiento{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        Información del Mantenimiento
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Impresora:</strong> 
+                    <a href="{% url 'printer-detail' maintenance.printer.pk %}">
+                        {{ maintenance.printer.brand }} {{ maintenance.printer.model }} - {{ maintenance.printer.code }}
+                    </a>
+                </p>
+                <p><strong>Fecha de Mantenimiento:</strong> {{ maintenance.maintenance_date }}</p>
+                <p><strong>Realizado por:</strong> {{ maintenance.performed_by }}</p>
+                <p><strong>Costo:</strong> PYG {{ maintenance.cost|intcomma }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Próxima Fecha de Mantenimiento:</strong> 
+                    {% if maintenance.next_maintenance_date %}
+                        {{ maintenance.next_maintenance_date }}
+                    {% else %}
+                        No programado
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <h5>Descripción:</h5>
+                <p>{{ maintenance.description }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'maintenance-update' maintenance.pk %}" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <a href="{% url 'maintenance-delete' maintenance.pk %}" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Eliminar
+        </a>
+        <a href="{% url 'maintenance-list' %}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver a la Lista
+        </a>
+        <a href="{% url 'printer-detail' maintenance.printer.pk %}" class="btn btn-info">
+            <i class="bi bi-printer"></i> Ver Impresora
+        </a>
+    </div>
+</div>
+{% endblock %}

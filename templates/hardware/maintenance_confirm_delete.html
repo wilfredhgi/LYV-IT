@@ -1,0 +1,25 @@
+{% extends 'hardware/base.html' %}
+
+{% block title %}Eliminar Registro de Mantenimiento - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Eliminar Registro de Mantenimiento{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-danger text-white">
+        Confirmar Eliminación
+    </div>
+    <div class="card-body">
+        <p class="lead">¿Está seguro de que desea eliminar el registro de mantenimiento para la impresora "{{ object.printer.brand }} {{ object.printer.model }}" realizado el {{ object.maintenance_date }}?</p>
+        <p class="text-danger"><strong>Advertencia:</strong> Esta acción no se puede deshacer.</p>
+        
+        <div class="mt-4">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+                <a href="{% url 'maintenance-detail' object.pk %}" class="btn btn-secondary">No, Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

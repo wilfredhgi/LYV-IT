@@ -1,0 +1,48 @@
+{% extends 'hardware/base.html' %}
+
+{% block title %}Detalles del PC - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Detalles del PC{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        Información del PC
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Codigo:</strong> {{ pc.code }}</p>
+                <p><strong>Marca:</strong> {{ pc.brand }}</p>
+                <p><strong>Modelo:</strong> {{ pc.model }}</p>
+                <p><strong>Fecha de Compra:</strong> {% if pc.purchase_date %}{{ pc.purchase_date }}{% else %}No especificada{% endif %}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Procesador:</strong> {{ pc.processor }}</p>
+                <p><strong>RAM:</strong> {{ pc.ram }}</p>
+                <p><strong>Almacenamiento:</strong> {{ pc.storage }}</p>
+                <p><strong>Sistema Operativo:</strong> {{ pc.operating_system }}</p>
+            </div>
+        </div>
+        {% if pc.notes %}
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <h5>Notas:</h5>
+                <p>{{ pc.notes }}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'pc-update' pc.pk %}" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <a href="{% url 'pc-delete' pc.pk %}" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Eliminar
+        </a>
+        <a href="{% url 'pc-list' %}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver a la Lista
+        </a>
+    </div>
+</div>
+{% endblock %}

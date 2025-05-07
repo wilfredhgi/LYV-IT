@@ -1,0 +1,89 @@
+{% extends 'hardware/base.html' %}
+
+{% block title %}Panel de Control - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Panel de Control{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">PCs</h5>
+                <p class="card-text display-4">{{ pc_count }}</p>
+                <a href="{% url 'pc-list' %}" class="btn btn-light">Ver PCs</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Mini PCs</h5>
+                <p class="card-text display-4">{{ minipc_count }}</p>
+                <a href="{% url 'minipc-list' %}" class="btn btn-light">Ver Mini PCs</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5 class="card-title">Impresoras</h5>
+                <p class="card-text display-4">{{ printer_count }}</p>
+                <a href="{% url 'printer-list' %}" class="btn btn-light">Ver Impresoras</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5 class="card-title">Mantenimientos</h5>
+                <p class="card-text display-4">{{ maintenance_count }}</p>
+                <a href="{% url 'maintenance-list' %}" class="btn btn-light">Ver Mantenimientos</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Acciones Rápidas
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="{% url 'pc-create' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-plus-circle"></i> Añadir PC
+                    </a>
+                    <a href="{% url 'minipc-create' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-plus-circle"></i> Añadir Mini PC
+                    </a>
+                    <a href="{% url 'printer-create' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-plus-circle"></i> Añadir Impresora
+                    </a>
+                    <a href="{% url 'maintenance-create' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-plus-circle"></i> Registrar Mantenimiento
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Bienvenido al Sistema de Gestión de Hardware
+            </div>
+            <div class="card-body">
+                <p>Este sistema le permite gestionar el inventario de hardware de su organización, incluyendo:</p>
+                <ul>
+                    <li>PCs de escritorio</li>
+                    <li>Mini PCs</li>
+                    <li>Impresoras</li>
+                    <li>Registros de mantenimiento de impresoras</li>
+                </ul>
+                <p>Utilice el menú de navegación para acceder a las diferentes secciones del sistema.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

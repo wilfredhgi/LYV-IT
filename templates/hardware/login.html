@@ -1,0 +1,33 @@
+{% extends 'hardware/base.html' %}
+
+{% block title %}Iniciar Sesión - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">Nombre de usuario</label>
+                        <input type="text" name="username" class="form-control" id="id_username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label">Contraseña</label>
+                        <input type="password" name="password" class="form-control" id="id_password" required>
+                    </div>
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <p>Tu nombre de usuario y contraseña no coinciden. Por favor, inténtalo de nuevo.</p>
+                    </div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

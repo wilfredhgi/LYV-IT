@@ -1,0 +1,183 @@
+{% extends 'hardware/base.html' %}
+{% load humanize %}
+
+{% block title %}{{ title }} - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id_printer" class="form-label">Impresora</label>
+                <select name="printer" id="id_printer" class="form-select" required>
+                    <option value="">Seleccione una impresora</option>
+                    {% for printer in form.fields.printer.queryset %}
+                    <option value="{{ printer.pk }}" {% if form.printer.value|stringformat:"i" == printer.pk|stringformat:"i" %}selected{% endif %}>
+                        {{ printer.brand }} {{ printer.model }} - {{ printer.code }}
+                    </option>
+                    {% endfor %}
+                </select>
+                {% if form.printer.errors %}
+                <div class="text-danger">{{ form.printer.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_maintenance_type" class="form-label">Tipo de Mantenimiento</label>
+                <select name="maintenance_type" id="id_maintenance_type" class="form-select" required>
+                    {% for value, text in form.fields.maintenance_type.choices %}
+                    <option value="{{ value }}" {% if form.maintenance_type.value == value %}selected{% endif %}>
+                        {{ text }}
+                    </option>
+                    {% endfor %}
+                </select>
+                {% if form.maintenance_type.errors %}
+                <div class="text-danger">{{ form.maintenance_type.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3" id="toner_selection_div" style="display: {% if form.maintenance_type.value == 'cambio_toner' %}block{% else %}none{% endif %}">
+                <label for="id_toner" class="form-label">Seleccionar Toner</label>
+                <select name="toner" id="id_toner" class="form-select">
+                    <option value="">Seleccione un toner</option>
+                    {% for toner in form.fields.toner.queryset %}
+                    <option value="{{ toner.pk }}" {% if form.toner.value|stringformat:"i" == toner.pk|stringformat:"i" %}selected{% endif %} data-price="{{ toner.buying_price }}">
+                        {{ toner.toner_model }} - {{ toner.ink_type }} - Cantidad: {{ toner.quantity }} - Precio: {{ toner.buying_price }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_maintenance_date" class="form-label">Fecha de Mantenimiento</label>
+                        <input type="date" name="maintenance_date" id="id_maintenance_date" class="form-control" value="{{ form.maintenance_date.value|date:'Y-m-d'|default:'' }}" required>
+                        {% if form.maintenance_date.errors %}
+                        <div class="text-danger">{{ form.maintenance_date.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_next_maintenance_date" class="form-label">Próxima Fecha de Mantenimiento</label>
+                        <input type="date" name="next_maintenance_date" id="id_next_maintenance_date" class="form-control" value="{{ form.next_maintenance_date.value|date:'Y-m-d'|default:'' }}">
+                        {% if form.next_maintenance_date.errors %}
+                        <div class="text-danger">{{ form.next_maintenance_date.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_performed_by" class="form-label">Realizado por</label>
+                <input type="text" name="performed_by" id="id_performed_by" class="form-control" value="{{ form.performed_by.value|default:'' }}" required>
+                {% if form.performed_by.errors %}
+                <div class="text-danger">{{ form.performed_by.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_cost" class="form-label">Costo</label>
+                <input type="number" id="id_cost_display" class="form-control" value="{{ form.cost.value|default:'0' }}" step="1" min="0" disabled required>
+                <input type="hidden" name="cost" id="id_cost" value="{{ form.cost.value|default:'0' }}">
+                {% if form.cost.errors %}
+                <div class="text-danger">{{ form.cost.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_description" class="form-label">Descripción</label>
+                <textarea name="description" id="id_description" class="form-control" rows="5" required>{{ form.description.value|default:'' }}</textarea>
+                {% if form.description.errors %}
+                <div class="text-danger">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                {% if object %}
+                <a href="{% url 'maintenance-detail' object.pk %}" class="btn btn-secondary">Cancelar</a>
+                {% else %}
+                <a href="{% url 'maintenance-list' %}" class="btn btn-secondary">Cancelar</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const maintenanceTypeSelect = document.getElementById('id_maintenance_type');
+        const printerSelect = document.getElementById('id_printer');
+        const tonerSelectionDiv = document.getElementById('toner_selection_div');
+        const tonerSelect = document.getElementById('id_toner');
+        const costDisplay = document.getElementById('id_cost_display');
+        const costInput = document.getElementById('id_cost');
+
+        // Function to toggle toner selection visibility
+        function toggleTonerSelection() {
+            if (maintenanceTypeSelect.value === 'cambio_toner') {
+                tonerSelectionDiv.style.display = 'block';
+                // Check if a toner is already selected
+                const selectedToner = tonerSelect.options[tonerSelect.selectedIndex];
+                if (selectedToner && selectedToner.value) {
+                    const price = selectedToner.dataset.price;
+                    costDisplay.value = price;
+                    costInput.value = price;
+                    costDisplay.disabled = true;
+                }
+            } else {
+                tonerSelectionDiv.style.display = 'none';
+                costDisplay.disabled = false;
+                // Sync the hidden input with the display input
+                costInput.value = costDisplay.value;
+            }
+        }
+
+        // Event listener for maintenance type change
+        maintenanceTypeSelect.addEventListener('change', toggleTonerSelection);
+
+        // Event listener for toner selection
+        tonerSelect.addEventListener('change', function() {
+            const selectedOption = tonerSelect.options[tonerSelect.selectedIndex];
+            if (selectedOption && selectedOption.value && selectedOption.dataset.price) {
+                const price = selectedOption.dataset.price;
+                costDisplay.value = price;
+                costInput.value = price;
+                costDisplay.disabled = true;
+            } else {
+                costDisplay.disabled = false;
+                // Sync the hidden input with the display input
+                costInput.value = costDisplay.value;
+            }
+        });
+
+        // Event listener for cost display changes
+        costDisplay.addEventListener('input', function() {
+            // Sync the hidden input with the display input
+            costInput.value = costDisplay.value;
+        });
+
+        // Initial check
+        toggleTonerSelection();
+
+        // Check if a toner is already selected on page load
+        if (maintenanceTypeSelect.value === 'cambio_toner' && tonerSelect.value) {
+            const selectedOption = tonerSelect.options[tonerSelect.selectedIndex];
+            if (selectedOption && selectedOption.dataset.price) {
+                const price = selectedOption.dataset.price;
+                costDisplay.value = price;
+                costInput.value = price;
+                costDisplay.disabled = true;
+            }
+        }
+    });
+</script>
+{% endblock %}

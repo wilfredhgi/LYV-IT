@@ -1,0 +1,38 @@
+{% extends 'hardware/base.html' %}
+{% load humanize %}
+
+{% block title %}Detalles del Stock de Tinta - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Detalles del Stock de Tinta{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        Información del Stock de Tinta
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Modelo de Toner:</strong> {{ inkstock.toner_model }}</p>
+                <p><strong>Tipo de Tinta:</strong> {{ inkstock.ink_type }}</p>
+                <p><strong>Cantidad:</strong> {{ inkstock.quantity }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Precio de Compra:</strong> PYG {{ inkstock.buying_price|intcomma }}</p>
+                <p><strong>Fecha de Compra:</strong> {% if inkstock.purchase_date %}{{ inkstock.purchase_date }}{% else %}No especificada{% endif %}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'inkstock-update' inkstock.pk %}" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <a href="{% url 'inkstock-delete' inkstock.pk %}" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Eliminar
+        </a>
+        <a href="{% url 'inkstock-list' %}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver a la Lista
+        </a>
+    </div>
+</div>
+{% endblock %}
