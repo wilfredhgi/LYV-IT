@@ -1,5 +1,5 @@
 from django import forms
-from .models import PC, MiniPC, Printer, PrinterMaintenance, InkStock
+from .models import PC, MiniPC, Printer, PrinterMaintenance, InkStock, NetworkCable
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Max
 
@@ -125,3 +125,32 @@ class InkStockForm(forms.ModelForm):
             'purchase_date': forms.DateInput(attrs={'type': 'date'}),
             'buying_price': forms.NumberInput(attrs={'step': '0.01', 'min': '0'}),
         }
+
+class NetworkCableForm(forms.ModelForm):
+    class Meta:
+        model = NetworkCable
+        fields = ['cable_code', 'source_device', 'destination_device', 'port_number', 
+                 'cable_type', 'cable_length', 'installation_date', 'notes']
+        widgets = {
+            'installation_date': forms.DateInput(attrs={'type': 'date'}),
+            'notes': forms.Textarea(attrs={'rows': 4}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Generate default code if this is a new NetworkCable
+        if not self.instance.pk and not self.initial.get('cable_code'):
+            # Find the highest existing code number
+            prefix = 'lyv-net-'
+            highest_cable = NetworkCable.objects.filter(cable_code__startswith=prefix).order_by('-cable_code').first()
+
+            highest_num = 0
+            if highest_cable:
+                try:
+                    highest_num = int(highest_cable.cable_code[len(prefix):])
+                except ValueError:
+                    pass
+
+            # Generate new code with incremented number
+            new_num = highest_num + 1
+            self.initial['cable_code'] = f"{prefix}{new_num:02d}"

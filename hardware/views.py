@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
-from .models import PC, MiniPC, Printer, PrinterMaintenance, InkStock
-from .forms import PCForm, MiniPCForm, PrinterForm, PrinterMaintenanceForm, InkStockForm
+from .models import PC, MiniPC, Printer, PrinterMaintenance, InkStock, NetworkCable
+from .forms import PCForm, MiniPCForm, PrinterForm, PrinterMaintenanceForm, InkStockForm, NetworkCableForm
 
 # Create your views here.
 @login_required
@@ -18,6 +18,7 @@ def home(request):
         'minipc_count': MiniPC.objects.count(),
         'printer_count': Printer.objects.count(),
         'maintenance_count': PrinterMaintenance.objects.count(),
+        'network_cable_count': NetworkCable.objects.count(),
         'title': _('Panel de Control'),
     }
     return render(request, 'hardware/home.html', context)
@@ -376,6 +377,61 @@ class InkStockDeleteView(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Eliminar Stock de Tinta')
+        return context
+
+# NetworkCable Views
+class NetworkCableListView(LoginRequiredMixin, ListView):
+    model = NetworkCable
+    template_name = 'hardware/network_cable_list.html'
+    context_object_name = 'network_cables'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Lista de Cables de Red')
+        return context
+
+class NetworkCableDetailView(LoginRequiredMixin, DetailView):
+    model = NetworkCable
+    template_name = 'hardware/network_cable_detail.html'
+    context_object_name = 'network_cable'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Detalles del Cable de Red')
+        return context
+
+class NetworkCableCreateView(LoginRequiredMixin, CreateView):
+    model = NetworkCable
+    template_name = 'hardware/network_cable_form.html'
+    form_class = NetworkCableForm
+    success_url = reverse_lazy('network-cable-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Añadir Cable de Red')
+        return context
+
+class NetworkCableUpdateView(LoginRequiredMixin, UpdateView):
+    model = NetworkCable
+    template_name = 'hardware/network_cable_form.html'
+    form_class = NetworkCableForm
+
+    def get_success_url(self):
+        return reverse_lazy('network-cable-detail', kwargs={'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Actualizar Cable de Red')
+        return context
+
+class NetworkCableDeleteView(LoginRequiredMixin, DeleteView):
+    model = NetworkCable
+    template_name = 'hardware/network_cable_confirm_delete.html'
+    success_url = reverse_lazy('network-cable-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Eliminar Cable de Red')
         return context
 
 # API Views

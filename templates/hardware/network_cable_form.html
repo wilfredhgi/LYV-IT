@@ -1,0 +1,111 @@
+{% extends 'hardware/base.html' %}
+
+{% block title %}{{ title }} - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_cable_code" class="form-label">Código de Cable</label>
+                        <input type="text" name="cable_code" id="id_cable_code" class="form-control" value="{{ form.cable_code.value|default:'' }}" required>
+                        {% if form.cable_code.errors %}
+                        <div class="text-danger">{{ form.cable_code.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_port_number" class="form-label">Número de Puerto</label>
+                        <input type="text" name="port_number" id="id_port_number" class="form-control" value="{{ form.port_number.value|default:'' }}" required>
+                        {% if form.port_number.errors %}
+                        <div class="text-danger">{{ form.port_number.errors }}</div>
+                        {% endif %}
+                        <small class="form-text text-muted">Puerto donde está conectado el cable</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_source_device" class="form-label">Dispositivo de Origen</label>
+                        <input type="text" name="source_device" id="id_source_device" class="form-control" value="{{ form.source_device.value|default:'' }}" required>
+                        {% if form.source_device.errors %}
+                        <div class="text-danger">{{ form.source_device.errors }}</div>
+                        {% endif %}
+                        <small class="form-text text-muted">Servidor o dispositivo de red de origen</small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_destination_device" class="form-label">Dispositivo de Destino</label>
+                        <input type="text" name="destination_device" id="id_destination_device" class="form-control" value="{{ form.destination_device.value|default:'' }}" required>
+                        {% if form.destination_device.errors %}
+                        <div class="text-danger">{{ form.destination_device.errors }}</div>
+                        {% endif %}
+                        <small class="form-text text-muted">Máquina o dispositivo de destino</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_cable_type" class="form-label">Tipo de Cable</label>
+                        <input type="text" name="cable_type" id="id_cable_type" class="form-control" value="{{ form.cable_type.value|default:'' }}">
+                        {% if form.cable_type.errors %}
+                        <div class="text-danger">{{ form.cable_type.errors }}</div>
+                        {% endif %}
+                        <small class="form-text text-muted">Ej: Ethernet, Fibra óptica, etc.</small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_cable_length" class="form-label">Longitud del Cable</label>
+                        <input type="text" name="cable_length" id="id_cable_length" class="form-control" value="{{ form.cable_length.value|default:'' }}">
+                        {% if form.cable_length.errors %}
+                        <div class="text-danger">{{ form.cable_length.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="id_installation_date" class="form-label">Fecha de Instalación</label>
+                        <input type="date" name="installation_date" id="id_installation_date" class="form-control" value="{{ form.installation_date.value|date:'Y-m-d'|default:'' }}">
+                        {% if form.installation_date.errors %}
+                        <div class="text-danger">{{ form.installation_date.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_notes" class="form-label">Notas</label>
+                <textarea name="notes" id="id_notes" class="form-control" rows="3">{{ form.notes.value|default:'' }}</textarea>
+                {% if form.notes.errors %}
+                <div class="text-danger">{{ form.notes.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                {% if object %}
+                <a href="{% url 'network-cable-detail' object.pk %}" class="btn btn-secondary">Cancelar</a>
+                {% else %}
+                <a href="{% url 'network-cable-list' %}" class="btn btn-secondary">Cancelar</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -40,6 +40,13 @@ urlpatterns = [
     path('inkstock/<int:pk>/update/', views.InkStockUpdateView.as_view(), name='inkstock-update'),
     path('inkstock/<int:pk>/delete/', views.InkStockDeleteView.as_view(), name='inkstock-delete'),
 
+    # NetworkCable URLs
+    path('network-cables/', views.NetworkCableListView.as_view(), name='network-cable-list'),
+    path('network-cables/<int:pk>/', views.NetworkCableDetailView.as_view(), name='network-cable-detail'),
+    path('network-cables/new/', views.NetworkCableCreateView.as_view(), name='network-cable-create'),
+    path('network-cables/<int:pk>/update/', views.NetworkCableUpdateView.as_view(), name='network-cable-update'),
+    path('network-cables/<int:pk>/delete/', views.NetworkCableDeleteView.as_view(), name='network-cable-delete'),
+
     # API URLs
     path('api/printer/<int:printer_id>/toners/', views.get_printer_toners, name='api-printer-toners'),
 ]

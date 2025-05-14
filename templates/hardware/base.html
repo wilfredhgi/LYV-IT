@@ -27,62 +27,32 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}">Panel de Control</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="pcDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            PCs
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="pcDropdown">
-                            <li><a class="dropdown-item" href="{% url 'pc-list' %}">Lista de PCs</a></li>
-                            <li><a class="dropdown-item" href="{% url 'pc-create' %}">Añadir PC</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pc-list' %}">PC's</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="minipcDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Mini PCs
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="minipcDropdown">
-                            <li><a class="dropdown-item" href="{% url 'minipc-list' %}">Lista de Mini PCs</a></li>
-                            <li><a class="dropdown-item" href="{% url 'minipc-create' %}">Añadir Mini PC</a></li>
-                        </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'minipc-list' %}">Mini PC's</a>
+                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'printer-list' %}">Impresoras</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="printerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Impresoras
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="printerDropdown">
-                            <li><a class="dropdown-item" href="{% url 'printer-list' %}">Lista de Impresoras</a></li>
-                            <li><a class="dropdown-item" href="{% url 'printer-create' %}">Añadir Impresora</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'maintenance-list' %}">Mantenimientos</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="maintenanceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Mantenimiento
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="maintenanceDropdown">
-                            <li><a class="dropdown-item" href="{% url 'maintenance-list' %}">Registros de Mantenimiento</a></li>
-                            <li><a class="dropdown-item" href="{% url 'maintenance-create' %}">Añadir Mantenimiento</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'inkstock-list' %}">Stock de Toner</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="inkstockDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Stock de Tinta
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="inkstockDropdown">
-                            <li><a class="dropdown-item" href="{% url 'inkstock-list' %}">Lista de Stock de Tinta</a></li>
-                            <li><a class="dropdown-item" href="{% url 'inkstock-create' %}">Añadir Stock de Tinta</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'network-cable-list' %}">Red</a>
                     </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <span class="nav-link">Hola, {{ user.username }}</span>
-                    </li>
-                    <li class="nav-item">
                         <form method="post" action="{% url 'logout' %}" class="d-inline">
                             {% csrf_token %}
-                            <button type="submit" class="nav-link btn btn-link">Cerrar Sesión</button>
+                            <button type="submit" class="nav-link btn btn-link bg-danger">Cerrar Sesión</button>
                         </form>
                     </li>
                     {% else %}

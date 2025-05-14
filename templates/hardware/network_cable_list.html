@@ -1,0 +1,50 @@
+{% extends 'hardware/base.html' %}
+
+{% block title %}Lista de Cables de Red - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Lista de Cables de Red{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <a href="{% url 'network-cable-create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Añadir Cable de Red
+    </a>
+</div>
+
+{% if network_cables %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Código de Cable</th>
+                <th>Dispositivo de Origen</th>
+                <th>Dispositivo de Destino</th>
+                <th>Puerto</th>
+                <th>Tipo de Cable</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cable in network_cables %}
+            <tr>
+                <td>{{ cable.cable_code }}</td>
+                <td>{{ cable.source_device }}</td>
+                <td>{{ cable.destination_device }}</td>
+                <td>{{ cable.port_number }}</td>
+                <td>{{ cable.cable_type }}</td>
+                <td>
+                    <a href="{% url 'network-cable-detail' cable.pk %}" class="btn btn-sm btn-info">Ver</a>
+                    <a href="{% url 'network-cable-update' cable.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'network-cable-delete' cable.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    No hay Cables de Red registrados. <a href="{% url 'network-cable-create' %}">Añadir Cable de Red</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'hardware/base.html' %}
+
+{% block title %}Detalles del Cable de Red - Sistema de Gestión de Hardware{% endblock %}
+
+{% block header %}Detalles del Cable de Red{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        Información del Cable de Red
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Código de Cable:</strong> {{ network_cable.cable_code }}</p>
+                <p><strong>Dispositivo de Origen:</strong> {{ network_cable.source_device }}</p>
+                <p><strong>Dispositivo de Destino:</strong> {{ network_cable.destination_device }}</p>
+                <p><strong>Número de Puerto:</strong> {{ network_cable.port_number }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Tipo de Cable:</strong> {% if network_cable.cable_type %}{{ network_cable.cable_type }}{% else %}No especificado{% endif %}</p>
+                <p><strong>Longitud del Cable:</strong> {% if network_cable.cable_length %}{{ network_cable.cable_length }}{% else %}No especificada{% endif %}</p>
+                <p><strong>Fecha de Instalación:</strong> {% if network_cable.installation_date %}{{ network_cable.installation_date }}{% else %}No especificada{% endif %}</p>
+            </div>
+        </div>
+        {% if network_cable.notes %}
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <h5>Notas:</h5>
+                <p>{{ network_cable.notes }}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'network-cable-update' network_cable.pk %}" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <a href="{% url 'network-cable-delete' network_cable.pk %}" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Eliminar
+        </a>
+        <a href="{% url 'network-cable-list' %}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver a la Lista
+        </a>
+    </div>
+</div>
+{% endblock %}

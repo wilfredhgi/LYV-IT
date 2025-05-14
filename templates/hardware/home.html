@@ -42,6 +42,15 @@
             </div>
         </div>
     </div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <h5 class="card-title">Cables de Red</h5>
+                <p class="card-text display-4">{{ network_cable_count }}</p>
+                <a href="{% url 'network-cable-list' %}" class="btn btn-light">Ver Cables de Red</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row mt-4">
@@ -64,6 +73,9 @@
                     <a href="{% url 'maintenance-create' %}" class="list-group-item list-group-item-action">
                         <i class="bi bi-plus-circle"></i> Registrar Mantenimiento
                     </a>
+                    <a href="{% url 'network-cable-create' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-plus-circle"></i> Añadir Cable de Red
+                    </a>
                 </div>
             </div>
         </div>
@@ -80,6 +92,7 @@
                     <li>Mini PCs</li>
                     <li>Impresoras</li>
                     <li>Registros de mantenimiento de impresoras</li>
+                    <li>Cables de red y conectividad</li>
                 </ul>
                 <p>Utilice el menú de navegación para acceder a las diferentes secciones del sistema.</p>
             </div>

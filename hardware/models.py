@@ -97,3 +97,22 @@ class PrinterMaintenance(models.Model):
 
     def __str__(self):
         return f"Mantenimiento de {self.printer} - {self.maintenance_date}"
+
+class NetworkCable(models.Model):
+    """Model for network cables connecting devices"""
+    cable_code = models.CharField(_('Código de Cable'), max_length=50, unique=True)
+    source_device = models.CharField(_('Dispositivo de Origen'), max_length=100, help_text=_('Servidor o dispositivo de red de origen'))
+    destination_device = models.CharField(_('Dispositivo de Destino'), max_length=100, help_text=_('Máquina o dispositivo de destino'))
+    port_number = models.CharField(_('Número de Puerto'), max_length=20, help_text=_('Puerto donde está conectado el cable'))
+    cable_type = models.CharField(_('Tipo de Cable'), max_length=50, blank=True, help_text=_('Ej: Ethernet, Fibra óptica, etc.'))
+    cable_length = models.CharField(_('Longitud del Cable'), max_length=20, blank=True)
+    installation_date = models.DateField(_('Fecha de Instalación'), null=True, blank=True)
+    notes = models.TextField(_('Notas'), blank=True)
+
+    class Meta:
+        verbose_name = _('Cable de Red')
+        verbose_name_plural = _('Cables de Red')
+        ordering = ['cable_code']
+
+    def __str__(self):
+        return f"Cable {self.cable_code}: {self.source_device} → {self.destination_device} (Puerto: {self.port_number})"
