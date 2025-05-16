@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b797ca9-775d-485e-8418-68ac35e1c36a" name="Changes" comment="adding network model">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="8b797ca9-775d-485e-8418-68ac35e1c36a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/hardware/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/hardware/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/hardware/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/hardware/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +91,7 @@
       <workItem from="1747399706081" duration="1037000" />
       <workItem from="1747400911729" duration="532000" />
       <workItem from="1747401459942" duration="255000" />
-      <workItem from="1747403530803" duration="734000" />
+      <workItem from="1747403530803" duration="1028000" />
     </task>
     <task id="LOCAL-00001" summary="adding network model">
       <option name="closed" value="true" />
@@ -136,7 +133,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747400184111</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="final commit">
+      <option name="closed" value="true" />
+      <created>1747404380727</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1747404380727</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +165,7 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="adding env and adjust models" />
     <MESSAGE value="adding network model" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding network model" />
+    <MESSAGE value="final commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="final commit" />
   </component>
 </project>
