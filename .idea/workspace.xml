@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b797ca9-775d-485e-8418-68ac35e1c36a" name="Changes" comment="adding network model">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/IT-LYV.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/hardware/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/hardware/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/hardware/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/hardware/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,12 +35,12 @@
     &quot;assignee&quot;: &quot;wilfredhgi&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/wilfredhgi/lyvit.git&quot;,
-    &quot;accountId&quot;: &quot;56cb239f-f063-419f-a7cf-204285b3d3a3&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/wilfredhgi/LYV-IT.git",
+    "accountId": "b114cf7a-2e92-474b-a6a8-9c237c3e37c2"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -68,7 +67,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -95,6 +94,7 @@
       <workItem from="1747399706081" duration="1037000" />
       <workItem from="1747400911729" duration="532000" />
       <workItem from="1747401459942" duration="255000" />
+      <workItem from="1747403530803" duration="734000" />
     </task>
     <task id="LOCAL-00001" summary="adding network model">
       <option name="closed" value="true" />
