@@ -8,7 +8,6 @@ class Hardware(models.Model):
     ip = models.CharField(_('IP'), max_length=15, unique=True, blank=True)
     serial_number = models.CharField(_('Número de Serie'), max_length=100, unique=True)
     brand = models.CharField(_('Marca'), max_length=100)
-    model = models.CharField(_('Modelo'), max_length=100)
     purchase_date = models.DateField(_('Fecha de Compra'), null=True, blank=True)
     notes = models.TextField(_('Notas'), blank=True)
 
@@ -47,6 +46,7 @@ class MiniPC(Hardware):
 
 class Printer(Hardware):
     """Model for printers"""
+    model = models.CharField(_('Modelo'), max_length=100)
     printer_type = models.CharField(_('Tipo de Impresora'), max_length=50)
     connection_type = models.CharField(_('Tipo de Conexión'), max_length=50)
     is_color = models.BooleanField(_('Es a Color'), default=False)

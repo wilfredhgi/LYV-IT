@@ -62,15 +62,6 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="id_model" class="form-label">Modelo</label>
-                        <input type="text" name="model" id="id_model" class="form-control" value="{{ form.model.value|default:'' }}" required>
-                        {% if form.model.errors %}
-                        <div class="text-danger">{{ form.model.errors }}</div>
-                        {% endif %}
-                    </div>
-                </div>
             </div>
 
             <div class="row mb-3">

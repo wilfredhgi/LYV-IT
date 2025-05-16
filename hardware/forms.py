@@ -6,7 +6,7 @@ from django.db.models import Max
 class PCForm(forms.ModelForm):
     class Meta:
         model = PC
-        fields = ['code', 'serial_number', 'ip', 'brand', 'model', 'purchase_date', 
+        fields = ['code', 'serial_number', 'ip', 'brand', 'purchase_date',
                  'processor', 'ram', 'storage', 'operating_system', 'notes']
         widgets = {
             'purchase_date': forms.DateInput(attrs={'type': 'date'}),
@@ -42,7 +42,7 @@ class PCForm(forms.ModelForm):
 class MiniPCForm(forms.ModelForm):
     class Meta:
         model = MiniPC
-        fields = ['code', 'serial_number', 'ip', 'brand', 'model', 'purchase_date', 
+        fields = ['code', 'serial_number', 'ip', 'brand', 'purchase_date',
                  'processor', 'ram', 'storage', 'operating_system', 'notes']
         widgets = {
             'purchase_date': forms.DateInput(attrs={'type': 'date'}),
